@@ -7,7 +7,7 @@ from encrypt import encryptPage
 st.set_page_config(page_title="LSB Stego App", page_icon=":eyes:", layout="wide")
 
 # Set up the Streamlit app
-st.title('LSB Steganography')
+st.title('Tugas Akhir')
 st.header('Cover and extract your secret message 👀')
 
 st.write("---")
