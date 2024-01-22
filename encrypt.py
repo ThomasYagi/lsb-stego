@@ -1,5 +1,6 @@
 import streamlit as st 
 from PIL import Image
+from PIL import ImageEnhance
 import numpy as np
 import base64
 from io import BytesIO
@@ -35,6 +36,10 @@ def encryptPage():
                 # Mengonversi ke RGB jika gambar dalam format CMYK
                 message = message.convert('RGB')
 
+            # Reduce the contrast of the message image
+            # enhancer = ImageEnhance.Contrast(message)
+            # message = enhancer.enhance(0.1)
+
             # Menyamakan ukuran gambar cover dengan gambar pesan
             cover = resize_image(cover, message)
 
@@ -46,26 +51,30 @@ def encryptPage():
             imbed = 4
 
             # Menggeser gambar pesan sebanyak (8 - imbed) bit ke kanan
-            messageshift = message >> (8-imbed)
+            messageshift = np.right_shift(message, 8 - imbed)
 
             # Tampilkan gambar pesan hanya dengan bit yang disematkan di layar
             # Harus digeser dari LSB (bit paling rendah) ke MSB (bit paling tinggi)
             showmess = messageshift << (8-imbed)
 
+            # Display the showmess image
+            st.image(showmess, caption='This is your message image with the embedded bits')
+
             # Sekarang, ubah nilai bit yang disematkan menjadi nol pada gambar sampul
-            coverzero = cover & (255 << imbed)
+            coverzero = cover & ~(0b11111111 >> imbed)
 
             # Sekarang tambahkan gambar pesan dan gambar sampul
-            stego = coverzero + messageshift
+            stego = coverzero | messageshift
+
+            stego = np.clip(stego, 0, 255)
 
             # Tampilkan gambar stego
-            st.image(stego, caption='This is your stego image')
-
-            # Sekarang, tambahkan gambar pesan dan gambar sampul
-            stego = coverzero + messageshift
+            st.image(stego, caption='This is your stego image', channels='GRAY')
 
             # Ubah kembali array stego menjadi gambar
             stego_img = Image.fromarray(stego.astype(np.uint8))
+
+            stego_img.save('stego.png')
 
             # Tambahkan link unduhan
             st.markdown(get_image_download_link(stego_img, 'stego.png', 'Download Stego Image'), unsafe_allow_html=True)

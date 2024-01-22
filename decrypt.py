@@ -1,5 +1,6 @@
 import streamlit as st
 from PIL import Image
+from PIL import ImageEnhance
 import numpy as np
 import base64
 from io import BytesIO
@@ -34,8 +35,13 @@ def decryptPage():
         for i in range(imbed):
             extracted_message = extracted_message | ((stego & (1 << i)) << (8 - imbed))
 
+        extracted_message = Image.fromarray(extracted_message.astype('uint8'), 'RGB')
+
+        # enhancer = ImageEnhance.Contrast(extracted_message)
+        # extracted_message = enhancer.enhance(1.0)  # Increase contrast
+
         # Ubah ke dalam bentuk gambar seperti semula
-        extracted_message = Image.fromarray(extracted_message)
+
 
         # Tampilkan gambar akhir
         st.image(extracted_message, caption='This is your hidden message')
