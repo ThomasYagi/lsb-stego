@@ -8,7 +8,7 @@ st.set_page_config(page_title="LSB Stego App", page_icon=":eyes:", layout="wide"
 
 # Set up the Streamlit app
 st.title('Tugas Akhir')
-st.header('Cover and extract your secret message 👀')
+st.header('Steganografi LSB pada kover buku')
 
 st.write("---")
 
@@ -17,8 +17,8 @@ PAGES = {
     "Decrypt": decryptPage,
 }
 
-st.sidebar.title("What You Want to Do?")
-selection = st.sidebar.radio("I want to", list(PAGES.keys()))
+st.sidebar.title("Menu")
+selection = st.sidebar.radio("silahkan pilih", list(PAGES.keys()))
 
 page = PAGES[selection]
 page()
