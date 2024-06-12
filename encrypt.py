@@ -20,13 +20,13 @@ def resize_image(cover, message):
 # Fungsi enkripsi gambar
 def encryptPage():
     # Unggah gambar cover
-    st.markdown("<h4 style='text-align: left;'>Upload Cover Image</h4>", unsafe_allow_html=True)
+    st.markdown("<h4 style='text-align: left;'>Unggah wadah sampul</h4>", unsafe_allow_html=True)
     cover_file = st.file_uploader('', type=['png', 'jpg', 'bmp'], key="cover")
     if cover_file is not None:
         cover = Image.open(cover_file)
 
         # Unggah gambar pesan
-        st.markdown("<h4 style='text-align: left;'>Upload Message Image</h4>", unsafe_allow_html=True)
+        st.markdown("<h4 style='text-align: left;'>Unggah sampul buku</h4>", unsafe_allow_html=True)
         message_file = st.file_uploader('', type=['png', 'jpg', 'bmp'], key="message")
         if message_file is not None:
             message = Image.open(message_file)
@@ -58,7 +58,7 @@ def encryptPage():
             showmess = messageshift << (8-imbed)
 
             # Display the showmess image
-            st.image(showmess, caption='This is your message image with the embedded bits')
+            st.image(showmess, caption='Ini adalah gambar sampul buku Anda dengan bit yang disematkan')
 
             # Sekarang, ubah nilai bit yang disematkan menjadi nol pada gambar sampul
             coverzero = cover & ~(0b11111111 >> imbed)
@@ -69,7 +69,7 @@ def encryptPage():
             stego = np.clip(stego, 0, 255)
 
             # Tampilkan gambar stego
-            st.image(stego, caption='This is your stego image', channels='GRAY')
+            st.image(stego, caption='Ini adalah gambar enkripsi Anda', channels='GRAY')
 
             # Ubah kembali array stego menjadi gambar
             stego_img = Image.fromarray(stego.astype(np.uint8))
