@@ -8,7 +8,7 @@ st.set_page_config(page_title="LSB Stego App", page_icon=":eyes:", layout="wide"
 
 # Set up the Streamlit app
 st.title('Tugas Akhir')
-st.header('Steganografi LSB pada kover buku')
+st.header('Steganografi LSB pada Sampul Buku')
 
 st.write("---")
 

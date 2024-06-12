@@ -20,13 +20,13 @@ def resize_image(cover, message):
 # Fungsi enkripsi gambar
 def encryptPage():
     # Unggah gambar cover
-    st.markdown("<h4 style='text-align: left;'>Unggah wadah sampul</h4>", unsafe_allow_html=True)
+    st.markdown("<h4 style='text-align: left;'>Unggah Wadah Sampul</h4>", unsafe_allow_html=True)
     cover_file = st.file_uploader('', type=['png', 'jpg', 'bmp'], key="cover")
     if cover_file is not None:
         cover = Image.open(cover_file)
 
         # Unggah gambar pesan
-        st.markdown("<h4 style='text-align: left;'>Unggah sampul buku</h4>", unsafe_allow_html=True)
+        st.markdown("<h4 style='text-align: left;'>Unggah Sampul Buku</h4>", unsafe_allow_html=True)
         message_file = st.file_uploader('', type=['png', 'jpg', 'bmp'], key="message")
         if message_file is not None:
             message = Image.open(message_file)
